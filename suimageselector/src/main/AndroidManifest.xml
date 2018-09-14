@@ -3,7 +3,7 @@
     package="su.com.suimageselector">
 
     <application>
-        <activity android:name=".SelectPanelActivity"
+        <activity android:name=".SelectPicturePanelActivity"
             android:theme="@style/SelectPanelToolBar"
             />
     </application>
