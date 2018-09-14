@@ -6,6 +6,15 @@ public class MyFolder {
     String path;
     int fileNum;
     String firstImagePath;
+    boolean isVedio;
+
+    public boolean isVedio() {
+        return isVedio;
+    }
+
+    public void setVedio(boolean vedio) {
+        isVedio = vedio;
+    }
 
     public String getFirstImagePath() {
         return firstImagePath;

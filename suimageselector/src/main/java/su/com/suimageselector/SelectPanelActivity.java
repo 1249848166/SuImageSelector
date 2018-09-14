@@ -39,6 +39,8 @@ import java.util.Set;
 
 public class SelectPanelActivity extends AppCompatActivity implements OnFolderListener {
 
+    View parent;
+
     RecyclerView recyclerView;
     MyImageAdapter imageAdapter;
     MyFolderAdapter folderAdapter;
@@ -46,7 +48,8 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
     int span = 5;
     int space = 0;
     ProgressDialog progressDialog;
-    List<MyFolder> folders;
+    List<MyFolder> images;
+    List<MyFolder> vedios;
     MyFolder selectedFolder = null;
 
     Toolbar toolbar;
@@ -114,10 +117,9 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_panel);
-
+        parent=LayoutInflater.from(this).inflate(R.layout.activity_select_panel,null);
+        setContentView(parent);
         try {
-
             //接受自定义属性
             Intent intent = getIntent();
             String topBarTitle = intent.getStringExtra("topBarTitle");
@@ -305,7 +307,7 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
             });
 
             RecyclerView list = content.findViewById(R.id.list);
-            folderAdapter = new MyFolderAdapter(folders, this, this);
+            folderAdapter = new MyFolderAdapter(images, this, this);
             list.setAdapter(folderAdapter);
             RecyclerView.LayoutManager linearmanager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             list.setLayoutManager(linearmanager);
@@ -330,46 +332,51 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
     private void initFolders(){
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(this, "没有内存卡", Toast.LENGTH_SHORT).show();
+            return;
         }
-        folders = new ArrayList<>();
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        ContentResolver cr = SelectPanelActivity.this.getContentResolver();
-        Cursor cs = cr.query(uri, null, MediaStore.Images.Media.MIME_TYPE + "=? or "
-                + MediaStore.Images.Media.MIME_TYPE + "=?", new String[]{"image/png", "image/jpeg"}, MediaStore.Images.Media.DATE_MODIFIED);
-        Set<String> loopSet = new HashSet<>();
-        assert cs != null;
-        while (cs.moveToNext()) {
-            String path = cs.getString(cs.getColumnIndex(MediaStore.Images.Media.DATA));
-            File parentFile = new File(path).getParentFile();
-            if (parentFile == null) {
-                continue;
-            }
-            String dirPath = parentFile.getAbsolutePath();
-            if (loopSet.contains(dirPath)) {
-                continue;
-            }
-            loopSet.add(dirPath);
-            MyFolder folder = new MyFolder();
-            folder.setName(dirPath.substring(dirPath.lastIndexOf("/"), dirPath.length()));
-            folder.setPath(dirPath);
-            folder.setFirstImagePath(path);
-            if (parentFile.list() == null) {
-                continue;
-            }
-            int num = parentFile.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File file, String s) {
-                    if (s.endsWith(".jpg") || s.endsWith(".jpeg") || s.endsWith(".png")) {
-                        return true;
-                    }
-                    return false;
-                }
-            }).length;
-            folder.setFileNum(num);
-            folders.add(folder);
-        }
-        cs.close();
+        initImageFolders();
     }
+
+    void initImageFolders(){
+         images = new ArrayList<>();
+         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+         ContentResolver cr = SelectPanelActivity.this.getContentResolver();
+         Cursor cs = cr.query(uri, null, MediaStore.Images.Media.MIME_TYPE + "=? or "
+                 + MediaStore.Images.Media.MIME_TYPE + "=?", new String[]{"image/png", "image/jpeg"}, MediaStore.Images.Media.DATE_MODIFIED);
+         Set<String> loopSet = new HashSet<>();
+         assert cs != null;
+         while (cs.moveToNext()) {
+             String path = cs.getString(cs.getColumnIndex(MediaStore.Images.Media.DATA));
+             File parentFile = new File(path).getParentFile();
+             if (parentFile == null) {
+                 continue;
+             }
+             String dirPath = parentFile.getAbsolutePath();
+             if (loopSet.contains(dirPath)) {
+                 continue;
+             }
+             loopSet.add(dirPath);
+             MyFolder folder = new MyFolder();
+             folder.setName(dirPath.substring(dirPath.lastIndexOf("/"), dirPath.length()));
+             folder.setPath(dirPath);
+             folder.setFirstImagePath(path);
+             if (parentFile.list() == null) {
+                 continue;
+             }
+             int num = parentFile.list(new FilenameFilter() {
+                 @Override
+                 public boolean accept(File file, String s) {
+                     if (s.endsWith(".jpg") || s.endsWith(".jpeg") || s.endsWith(".png")) {
+                         return true;
+                     }
+                     return false;
+                 }
+             }).length;
+             folder.setFileNum(num);
+             images.add(folder);
+         }
+         cs.close();
+     }
 
     void setFileImages(String directory){
         File dir = new File(directory);
@@ -397,7 +404,7 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
         try {
             if (!popupWindow.isShowing()) {
                 backgroundAlpha(0.3f);
-                popupWindow.showAtLocation(LayoutInflater.from(this).inflate(R.layout.activity_select_panel, null), Gravity.BOTTOM, 0, 0);
+                popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
             } else {
                 popupWindow.dismiss();
             }
