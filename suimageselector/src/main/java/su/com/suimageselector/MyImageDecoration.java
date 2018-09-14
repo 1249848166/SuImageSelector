@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class MyDecoration extends RecyclerView.ItemDecoration {
+public class MyImageDecoration extends RecyclerView.ItemDecoration {
 
     public enum Decoration{
         Linear,Grid
@@ -13,7 +13,7 @@ public class MyDecoration extends RecyclerView.ItemDecoration {
     int space;
     int span;
 
-    public MyDecoration(Decoration decoration,int span,int space) {
+    public MyImageDecoration(Decoration decoration, int span, int space) {
         this.decoration=decoration;
         this.span=span;
         this.space = space;

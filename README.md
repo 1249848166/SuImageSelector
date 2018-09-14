@@ -72,8 +72,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import java.util.List;
-import su.com.suimageselector.IconPosition;
-import su.com.suimageselector.MyImageLoader;
+import su.com.suimageselector.IconImagePosition;
+import su.com.suimageselector.MyImageImageLoader;
 import su.com.suimageselector.SelectPicturePanelActivity;
 
 public class MainActivity extends AppCompatActivity {

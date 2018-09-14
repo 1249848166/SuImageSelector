@@ -14,12 +14,12 @@ import java.util.List;
 
 public class MyFolderAdapter extends RecyclerView.Adapter<MyFolderAdapter.Holder> implements View.OnClickListener{
 
-    List<MyFolder> folders;
+    List<MyImageFolder> folders;
     Context context;
-    OnFolderListener listener;
+    OnImageFolderListener listener;
     int width,height;
 
-    public MyFolderAdapter(List<MyFolder> folders, Context context,OnFolderListener listener) {
+    public MyFolderAdapter(List<MyImageFolder> folders, Context context, OnImageFolderListener listener) {
         this.folders = folders;
         this.context = context;
         this.listener=listener;
@@ -32,7 +32,7 @@ public class MyFolderAdapter extends RecyclerView.Adapter<MyFolderAdapter.Holder
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.folder_item,parent,false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.image_folder_item,parent,false);
         return new Holder(itemView);
     }
 
@@ -45,7 +45,7 @@ public class MyFolderAdapter extends RecyclerView.Adapter<MyFolderAdapter.Holder
         int w,h;
         w=width/4;
         h=w;
-        MyImageLoader.getInstance(context).loadImage(img,folders.get(position).getFirstImagePath(),w,h);
+        MyImageImageLoader.getInstance(context).loadImage(img,folders.get(position).getFirstImagePath(),w,h);
         name.setText(folders.get(position).getName());
         num.setText(folders.get(position).getFileNum()+"张");
         holder.itemView.setTag(position);

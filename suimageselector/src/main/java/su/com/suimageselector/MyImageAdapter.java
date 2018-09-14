@@ -17,11 +17,11 @@ public class MyImageAdapter extends RecyclerView.Adapter<MyImageAdapter.Holder> 
     int span;
     int space;
     final CheckBoxImageViewGroup checkBoxImageViewGroup;
-    IconPosition position;
+    IconImagePosition position;
     int drawable;
     int width,height;
 
-    public MyImageAdapter(List<String> urls, Context context, int span, int space, CheckBoxImageViewGroup checkBoxImageViewGroup, IconPosition position, int drawable) {
+    public MyImageAdapter(List<String> urls, Context context, int span, int space, CheckBoxImageViewGroup checkBoxImageViewGroup, IconImagePosition position, int drawable) {
         this.urls = urls;
         this.context = context;
         this.span=span;
@@ -38,7 +38,7 @@ public class MyImageAdapter extends RecyclerView.Adapter<MyImageAdapter.Holder> 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CheckBoxImageView itemView = (CheckBoxImageView) View.inflate(context,R.layout.image_item,null);
+        CheckBoxImageView itemView = (CheckBoxImageView) View.inflate(context,R.layout.image_image_item,null);
         return new Holder(itemView);
     }
 
@@ -51,7 +51,7 @@ public class MyImageAdapter extends RecyclerView.Adapter<MyImageAdapter.Holder> 
         w=(width-(span+1)*space)/span;
         h=w;
         holder.itemView.setLayoutParams(new RelativeLayout.LayoutParams(w,h));
-        MyImageLoader.getInstance(context).loadImage(holder.itemView,urls.get(position),w,h);
+        MyImageImageLoader.getInstance(context).loadImage(holder.itemView,urls.get(position),w,h);
         holder.itemView.setOnClickListener(this);
     }
 

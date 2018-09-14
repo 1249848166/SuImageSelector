@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import su.com.suimageselector.IconPosition;
-import su.com.suimageselector.MyImageLoader;
+import su.com.suimageselector.IconImagePosition;
+import su.com.suimageselector.MyImageImageLoader;
 import su.com.suimageselector.SelectPicturePanelActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SelectPicturePanelActivity.maxSelectNum,5);//最大可选择图片数量
         intent.putExtra(SelectPicturePanelActivity.colSpan,4);//图片墙列数
         intent.putExtra(SelectPicturePanelActivity.colSpace,1);//图片墙图片间隔（像素）
-        intent.putExtra(SelectPicturePanelActivity.checkIconPosition, IconPosition.LEFT.toString());//图片被选中后标记的位置
+        intent.putExtra(SelectPicturePanelActivity.checkIconPosition, IconImagePosition.LEFT.toString());//图片被选中后标记的位置
         startActivityForResult(intent,REQUEST_CODE);//启动选择图片界面
     }
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 params.setMargins(5,5,5,5);
                 iv.setLayoutParams(params);
                 iv.setBackgroundColor(Color.BLACK);
-                MyImageLoader.getInstance(MainActivity.this).loadImage(iv,path,100,100);
+                MyImageImageLoader.getInstance(MainActivity.this).loadImage(iv,path,100,100);
                 parent.addView(iv);
             }
         }

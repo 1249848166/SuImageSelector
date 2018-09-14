@@ -6,9 +6,9 @@ public class CheckBoxImageViewGroup {
 
     List<String> checkedItems;
     int maxSize;
-    CheckCallback callback;
+    ImageCheckCallback callback;
 
-    public CheckBoxImageViewGroup(List<String> checkedItems,int maxSize,CheckCallback callback) {
+    public CheckBoxImageViewGroup(List<String> checkedItems,int maxSize,ImageCheckCallback callback) {
         this.checkedItems = checkedItems;
         this.maxSize=maxSize;
         this.callback=callback;

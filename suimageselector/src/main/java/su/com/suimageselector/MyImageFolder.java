@@ -1,6 +1,6 @@
 package su.com.suimageselector;
 
-public class MyFolder {
+public class MyImageFolder {
 
     String name;
     String path;

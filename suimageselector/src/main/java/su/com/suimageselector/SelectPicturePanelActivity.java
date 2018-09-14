@@ -37,7 +37,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SelectPicturePanelActivity extends AppCompatActivity implements OnFolderListener {
+public class SelectPicturePanelActivity extends AppCompatActivity implements OnImageFolderListener {
 
     View parent;
 
@@ -45,12 +45,12 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
     MyImageAdapter imageAdapter;
     MyFolderAdapter folderAdapter;
     List<String> urls;
-    int span = 5;
-    int space = 0;
+    int span = 3;
+    int space = 1;
     ProgressDialog progressDialog;
-    List<MyFolder> images;
-    List<MyFolder> vedios;
-    MyFolder selectedFolder = null;
+    List<MyImageFolder> images;
+    List<MyImageFolder> vedios;
+    MyImageFolder selectedFolder = null;
 
     Toolbar toolbar;
     Button selectedNum;
@@ -108,7 +108,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
     public static String checkIconPosition = "checkIconPosition";
     public static String checkIconDrawable = "checkIconDrawable";
 
-    IconPosition iconPosition = IconPosition.CENTER;
+    IconImagePosition iconImagePosition = IconImagePosition.CENTER;
     int drawable = R.mipmap.check;
 
     PopupWindow popupWindow;
@@ -117,7 +117,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent=LayoutInflater.from(this).inflate(R.layout.activity_select_panel,null);
+        parent=LayoutInflater.from(this).inflate(R.layout.activity_select_picture_panel,null);
         setContentView(parent);
         try {
             //接受自定义属性
@@ -142,7 +142,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             //0：中心，1：左，2：上，3：右，4：下，5：左上，6：右上，7：右下，8：左下
             String checkIconPosition = intent.getStringExtra("checkIconPosition");
             if (checkIconPosition != null) {
-                iconPosition = IconPosition.valueOf(checkIconPosition);
+                iconImagePosition = IconImagePosition.valueOf(checkIconPosition);
             }
             if (iconDrawable != 0) {
                 drawable = iconDrawable;
@@ -229,7 +229,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             if (maxSelectNum != 0) {
                 maxSize = maxSelectNum;
             }
-            group = new CheckBoxImageViewGroup(new ArrayList<String>(), maxSize, new CheckCallback() {
+            group = new CheckBoxImageViewGroup(new ArrayList<String>(), maxSize, new ImageCheckCallback() {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onCheckResult(CheckBoxImageViewGroup group, CheckBoxImageView item) {
@@ -252,10 +252,10 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             if (colSpace != 0) {
                 space = colSpace;
             }
-            imageAdapter = new MyImageAdapter(urls, SelectPicturePanelActivity.this, span, space, group, iconPosition, drawable);
+            imageAdapter = new MyImageAdapter(urls, SelectPicturePanelActivity.this, span, space, group, iconImagePosition, drawable);
             RecyclerView.LayoutManager manager = new GridLayoutManager(SelectPicturePanelActivity.this, span);
             recyclerView.setLayoutManager(manager);
-            MyDecoration decoration = new MyDecoration(MyDecoration.Decoration.Grid, span, space);
+            MyImageDecoration decoration = new MyImageDecoration(MyImageDecoration.Decoration.Grid, span, space);
             recyclerView.addItemDecoration(decoration);
             recyclerView.setAdapter(imageAdapter);
 
@@ -263,7 +263,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setMessage("正在加载...");
 
-            selectedFolder=new MyFolder();
+            selectedFolder=new MyImageFolder();
             selectedFolder.setName("未选择相册");
             selectedFolder.setPath("");
 
@@ -290,10 +290,10 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             getWindow().getWindowManager().getDefaultDisplay().getMetrics(metrics);
             int width = metrics.widthPixels;
             int height = metrics.heightPixels;
-            View content = LayoutInflater.from(this).inflate(R.layout.layout_list, null);
+            View content = LayoutInflater.from(this).inflate(R.layout.image_layout_list, null);
             popupWindow = new PopupWindow(content, width, (int) (height * 0.8));
             popupWindow.setOutsideTouchable(true);
-            popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow));
+            popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_popupwindow));
             popupWindow.setAnimationStyle(R.style.PopupWindowAnim);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -311,7 +311,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
             list.setAdapter(folderAdapter);
             RecyclerView.LayoutManager linearmanager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             list.setLayoutManager(linearmanager);
-            MyDecoration lineardecoration = new MyDecoration(MyDecoration.Decoration.Linear, 1, 2);
+            MyImageDecoration lineardecoration = new MyImageDecoration(MyImageDecoration.Decoration.Linear, 1, 2);
             list.addItemDecoration(lineardecoration);
 
             bottombar.setOnClickListener(new View.OnClickListener() {
@@ -356,7 +356,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
                  continue;
              }
              loopSet.add(dirPath);
-             MyFolder folder = new MyFolder();
+             MyImageFolder folder = new MyImageFolder();
              folder.setName(dirPath.substring(dirPath.lastIndexOf("/"), dirPath.length()));
              folder.setPath(dirPath);
              folder.setFirstImagePath(path);
@@ -423,7 +423,7 @@ public class SelectPicturePanelActivity extends AppCompatActivity implements OnF
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onFolderSelect(MyFolder folder) throws Exception {
+    public void onFolderSelect(MyImageFolder folder) throws Exception {
         setFileImages(folder.getPath());
         selectedFolder=folder;
         popupWindow.dismiss();

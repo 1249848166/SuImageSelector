@@ -15,9 +15,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-public class MyImageLoader {
+public class MyImageImageLoader {
 
-    private static MyImageLoader instance;
+    private static MyImageImageLoader instance;
     LruCache<String,Bitmap> lruCache;
     ExecutorService executorService;
     final int THREAD_COUNT=10;
@@ -27,7 +27,7 @@ public class MyImageLoader {
     int screenWidth;
 
     @SuppressLint("HandlerLeak")
-    private MyImageLoader(Context context){
+    private MyImageImageLoader(Context context){
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         screenWidth=metrics.widthPixels;
         semaphore=new Semaphore(0);
@@ -64,11 +64,11 @@ public class MyImageLoader {
         };
     }
 
-    public static MyImageLoader getInstance(Context context){
+    public static MyImageImageLoader getInstance(Context context){
         if(instance==null){
-            synchronized (MyImageLoader.class){
+            synchronized (MyImageImageLoader.class){
                 if(instance==null)
-                    instance=new MyImageLoader(context);
+                    instance=new MyImageImageLoader(context);
             }
         }
         return instance;

@@ -20,7 +20,7 @@ public class CheckBoxImageView extends ImageView {
     Bitmap bitmap;
     Paint paint;
     CheckBoxImageViewGroup group;
-    IconPosition iconPosition=IconPosition.CENTER;
+    IconImagePosition iconImagePosition = IconImagePosition.CENTER;
 
     public void judge(String path){
         if(group!=null&&group.getCheckedItems()!=null&&group.getCheckedItems().contains(path)){
@@ -57,9 +57,9 @@ public class CheckBoxImageView extends ImageView {
         initBitmap();
     }
 
-    public void check(CheckBoxImageViewGroup group,boolean checked,IconPosition iconPosition,int drawable){
+    public void check(CheckBoxImageViewGroup group, boolean checked, IconImagePosition iconImagePosition, int drawable){
         this.group=group;
-        this.iconPosition=iconPosition;
+        this.iconImagePosition = iconImagePosition;
         this.drawable=drawable;
         initBitmap();
         group.check(this,checked);
@@ -86,23 +86,23 @@ public class CheckBoxImageView extends ImageView {
         super.draw(canvas);
         if(checked) {
             setColorFilter(filterColor);
-            if(iconPosition.equals(IconPosition.CENTER)){
+            if(iconImagePosition.equals(IconImagePosition.CENTER)){
                 canvas.drawBitmap(bitmap, getWidth() / 2 - bitmap.getWidth() / 2, getHeight() / 2 - bitmap.getHeight() / 2, paint);
-            }else if(iconPosition.equals(IconPosition.LEFT)){
+            }else if(iconImagePosition.equals(IconImagePosition.LEFT)){
                 canvas.drawBitmap(bitmap, 0, getHeight() / 2 - bitmap.getHeight() / 2, paint);
-            }else if(iconPosition.equals(IconPosition.TOP)){
+            }else if(iconImagePosition.equals(IconImagePosition.TOP)){
                 canvas.drawBitmap(bitmap, getWidth() / 2 - bitmap.getWidth() / 2, 0, paint);
-            }else if(iconPosition.equals(IconPosition.RIGHT)){
+            }else if(iconImagePosition.equals(IconImagePosition.RIGHT)){
                 canvas.drawBitmap(bitmap, getWidth() - bitmap.getWidth(), getHeight() / 2 - bitmap.getHeight() / 2, paint);
-            }else if(iconPosition.equals(IconPosition.BOTTOM)){
+            }else if(iconImagePosition.equals(IconImagePosition.BOTTOM)){
                 canvas.drawBitmap(bitmap, getWidth() / 2 - bitmap.getWidth() / 2, getHeight() - bitmap.getHeight(), paint);
-            }else if(iconPosition.equals(IconPosition.LEFT_TOP)){
+            }else if(iconImagePosition.equals(IconImagePosition.LEFT_TOP)){
                 canvas.drawBitmap(bitmap, 0,0, paint);
-            }else if(iconPosition.equals(IconPosition.RIGHT_TOP)){
+            }else if(iconImagePosition.equals(IconImagePosition.RIGHT_TOP)){
                 canvas.drawBitmap(bitmap, getWidth() - bitmap.getWidth(), 0, paint);
-            }else if(iconPosition.equals(IconPosition.RIGHT_BOTTOM)){
+            }else if(iconImagePosition.equals(IconImagePosition.RIGHT_BOTTOM)){
                 canvas.drawBitmap(bitmap, getWidth() - bitmap.getWidth(), getHeight() - bitmap.getHeight(), paint);
-            }else if(iconPosition.equals(IconPosition.LEFT_BOTTOM)){
+            }else if(iconImagePosition.equals(IconImagePosition.LEFT_BOTTOM)){
                 canvas.drawBitmap(bitmap, 0, getHeight() - bitmap.getHeight(), paint);
             }
         }else{
