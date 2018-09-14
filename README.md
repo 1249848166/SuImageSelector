@@ -16,7 +16,7 @@ allprojects {
 添加网络引用
 ```java
 dependencies {
-	        implementation 'com.github.1249848166:SuImageSelector:1.1'
+	        implementation 'com.github.1249848166:SuImageSelector:1.2'
 	}
 
 ```
