@@ -74,7 +74,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 import su.com.suimageselector.IconPosition;
 import su.com.suimageselector.MyImageLoader;
-import su.com.suimageselector.SelectPanelActivity;
+import su.com.suimageselector.SelectPicturePanelActivity;
 
 public class MainActivity extends AppCompatActivity {
     final int REQUEST_CODE=110;

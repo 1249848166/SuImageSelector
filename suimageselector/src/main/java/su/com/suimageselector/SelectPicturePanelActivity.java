@@ -37,7 +37,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SelectPanelActivity extends AppCompatActivity implements OnFolderListener {
+public class SelectPicturePanelActivity extends AppCompatActivity implements OnFolderListener {
 
     View parent;
 
@@ -181,7 +181,7 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
                 @Override
                 public void onClick(View v) {
                     //完成选择
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SelectPanelActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SelectPicturePanelActivity.this);
                     AlertDialog askDialog = builder.create();
                     askDialog.setMessage("是否完成选择？");
                     askDialog.setCancelable(false);
@@ -242,7 +242,7 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
                         selectedNum.setBackgroundResource(R.drawable.round_corner_gray);
                     }
                     if (group.size() >= group.getMaxSize()) {
-                        Toast.makeText(SelectPanelActivity.this, "最多选择" + group.getMaxSize() + "张图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SelectPicturePanelActivity.this, "最多选择" + group.getMaxSize() + "张图片", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -252,8 +252,8 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
             if (colSpace != 0) {
                 space = colSpace;
             }
-            imageAdapter = new MyImageAdapter(urls, SelectPanelActivity.this, span, space, group, iconPosition, drawable);
-            RecyclerView.LayoutManager manager = new GridLayoutManager(SelectPanelActivity.this, span);
+            imageAdapter = new MyImageAdapter(urls, SelectPicturePanelActivity.this, span, space, group, iconPosition, drawable);
+            RecyclerView.LayoutManager manager = new GridLayoutManager(SelectPicturePanelActivity.this, span);
             recyclerView.setLayoutManager(manager);
             MyDecoration decoration = new MyDecoration(MyDecoration.Decoration.Grid, span, space);
             recyclerView.addItemDecoration(decoration);
@@ -340,7 +340,7 @@ public class SelectPanelActivity extends AppCompatActivity implements OnFolderLi
     void initImageFolders(){
          images = new ArrayList<>();
          Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-         ContentResolver cr = SelectPanelActivity.this.getContentResolver();
+         ContentResolver cr = SelectPicturePanelActivity.this.getContentResolver();
          Cursor cs = cr.query(uri, null, MediaStore.Images.Media.MIME_TYPE + "=? or "
                  + MediaStore.Images.Media.MIME_TYPE + "=?", new String[]{"image/png", "image/jpeg"}, MediaStore.Images.Media.DATE_MODIFIED);
          Set<String> loopSet = new HashSet<>();

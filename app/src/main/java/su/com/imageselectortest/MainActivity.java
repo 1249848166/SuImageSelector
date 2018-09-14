@@ -13,7 +13,7 @@ import java.util.List;
 
 import su.com.suimageselector.IconPosition;
 import su.com.suimageselector.MyImageLoader;
-import su.com.suimageselector.SelectPanelActivity;
+import su.com.suimageselector.SelectPicturePanelActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,24 +26,24 @@ public class MainActivity extends AppCompatActivity {
         parent= (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_main,null);
         setContentView(parent);
 
-        Intent intent=new Intent(this,SelectPanelActivity.class);
-        intent.putExtra(SelectPanelActivity.bottomBarColor,"#ffffff");//底部横条颜色
-        intent.putExtra(SelectPanelActivity.bottomBarLeftTextColor,"#000000");//底部文件夹名称字体颜色
-        intent.putExtra(SelectPanelActivity.bottomBarLeftTextSize,18);//底部文件夹名称字体大小
-        intent.putExtra(SelectPanelActivity.bottomBarRightTextColor,"#000000");//底部图片数目字体颜色
-        intent.putExtra(SelectPanelActivity.bottomBarRightTextSize,18);//底部图片数目字体大小
-        intent.putExtra(SelectPanelActivity.topBarColor,"#ffffff");//顶部横条颜色
-        intent.putExtra(SelectPanelActivity.topBarFinishButtonDisableColor,"#aaaaaa");//完成选择按钮失效颜色
-        intent.putExtra(SelectPanelActivity.topBarFinishButtonEnableColor,"#00ff00");//完成选择按钮启用颜色
-        intent.putExtra(SelectPanelActivity.topBarFinishButtonTextColor,"#ffffff");//完成选择按钮字体颜色
-        intent.putExtra(SelectPanelActivity.topBarFinishButtonTextSize,18);//完成选择按钮字体大小
-        intent.putExtra(SelectPanelActivity.topBarTitle,"请选择图片");//顶部横条标题
-        intent.putExtra(SelectPanelActivity.topBarTitleColor,"#000000");//顶部横条标题字体颜色
-        intent.putExtra(SelectPanelActivity.topBarTitleSize,18);//顶部横条标题字体大小
-        intent.putExtra(SelectPanelActivity.maxSelectNum,5);//最大可选择图片数量
-        intent.putExtra(SelectPanelActivity.colSpan,4);//图片墙列数
-        intent.putExtra(SelectPanelActivity.colSpace,1);//图片墙图片间隔（像素）
-        intent.putExtra(SelectPanelActivity.checkIconPosition, IconPosition.LEFT.toString());//图片被选中后标记的位置
+        Intent intent=new Intent(this,SelectPicturePanelActivity.class);
+        intent.putExtra(SelectPicturePanelActivity.bottomBarColor,"#ffffff");//底部横条颜色
+        intent.putExtra(SelectPicturePanelActivity.bottomBarLeftTextColor,"#000000");//底部文件夹名称字体颜色
+        intent.putExtra(SelectPicturePanelActivity.bottomBarLeftTextSize,18);//底部文件夹名称字体大小
+        intent.putExtra(SelectPicturePanelActivity.bottomBarRightTextColor,"#000000");//底部图片数目字体颜色
+        intent.putExtra(SelectPicturePanelActivity.bottomBarRightTextSize,18);//底部图片数目字体大小
+        intent.putExtra(SelectPicturePanelActivity.topBarColor,"#ffffff");//顶部横条颜色
+        intent.putExtra(SelectPicturePanelActivity.topBarFinishButtonDisableColor,"#aaaaaa");//完成选择按钮失效颜色
+        intent.putExtra(SelectPicturePanelActivity.topBarFinishButtonEnableColor,"#00ff00");//完成选择按钮启用颜色
+        intent.putExtra(SelectPicturePanelActivity.topBarFinishButtonTextColor,"#ffffff");//完成选择按钮字体颜色
+        intent.putExtra(SelectPicturePanelActivity.topBarFinishButtonTextSize,18);//完成选择按钮字体大小
+        intent.putExtra(SelectPicturePanelActivity.topBarTitle,"请选择图片");//顶部横条标题
+        intent.putExtra(SelectPicturePanelActivity.topBarTitleColor,"#000000");//顶部横条标题字体颜色
+        intent.putExtra(SelectPicturePanelActivity.topBarTitleSize,18);//顶部横条标题字体大小
+        intent.putExtra(SelectPicturePanelActivity.maxSelectNum,5);//最大可选择图片数量
+        intent.putExtra(SelectPicturePanelActivity.colSpan,4);//图片墙列数
+        intent.putExtra(SelectPicturePanelActivity.colSpace,1);//图片墙图片间隔（像素）
+        intent.putExtra(SelectPicturePanelActivity.checkIconPosition, IconPosition.LEFT.toString());//图片被选中后标记的位置
         startActivityForResult(intent,REQUEST_CODE);//启动选择图片界面
     }
 
